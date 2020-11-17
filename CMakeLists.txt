@@ -3,12 +3,17 @@ project(opengl_playground)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_FILES src/main.cpp
-                 src/imgui_impl_glfw.h
-                 src/imgui_impl_glfw.cpp
-                 src/imgui_impl_opengl3.h
-                 src/imgui_impl_opengl3.cpp)
+                 src/core/application.h
+                 src/core/application.cpp
+                 src/core/layer.h
+                 src/imgui/imgui_impl_glfw.h
+                 src/imgui/imgui_impl_glfw.cpp
+                 src/imgui/imgui_impl_opengl3.h
+                 src/imgui/imgui_impl_opengl3.cpp
+                 src/imgui/imgui_layer.cpp)
 
 add_executable(opengl_playground WIN32 ${SOURCE_FILES})
+target_include_directories(opengl_playground PUBLIC src/)
 
 # --- glfw ---
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
