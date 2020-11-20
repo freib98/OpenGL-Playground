@@ -1,11 +1,5 @@
 #include "application.h"
 
-#include <glad/glad.h>
-#include <imgui.h>
-
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-
 Application::Application()
 {
     if (!glfwInit())
@@ -26,41 +20,15 @@ Application::Application()
 
     gladLoadGL();
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
+    _imguiLayer = new ImguiLayer(window);
+    _imguiLayer->Attach();
 
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 430");
-
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwPollEvents();
-
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        ImGui::ShowDemoWindow();
-
-        ImGui::Render();
-
-        int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        glfwSwapBuffers(window);
-    }
+    // _layerStack.PushLayer(_imguiLayer);
 }
 
 Application::~Application()
 {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    _imguiLayer->Detach();
 
     glfwDestroyWindow(window);
     glfwTerminate();
@@ -68,4 +36,19 @@ Application::~Application()
 
 void Application::Run()
 {
+    while (!glfwWindowShouldClose(window))
+    {
+        glfwPollEvents();
+
+        _imguiLayer->Update();
+
+        int display_w, display_h;
+        glfwGetFramebufferSize(window, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        glfwSwapBuffers(window);
+    }
 }

@@ -1,6 +1,10 @@
-#define GLFW_INCLUDE_NONE
+#pragma once
 
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
+#include "imgui/imgui_layer.h"
 
 class Application
 {
@@ -11,5 +15,8 @@ public:
     void Run();
 
 private:
-    GLFWwindow *window;
+    GLFWwindow* window;
+
+    // LayerStack _layerStack;
+    ImguiLayer* _imguiLayer; // Todo - use the layerstack instead of the layer itself
 };

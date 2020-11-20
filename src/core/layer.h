@@ -1,7 +1,9 @@
+#pragma once
+
 class Layer
 {
 public:
-    virtual void Attach();
-    virtual void Detach();
-    virtual void Update();
+    virtual void Attach() = 0;
+    virtual void Detach() = 0;
+    virtual void Update() = 0;
 };

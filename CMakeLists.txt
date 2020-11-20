@@ -6,10 +6,13 @@ set(SOURCE_FILES src/main.cpp
                  src/core/application.h
                  src/core/application.cpp
                  src/core/layer.h
+                 src/core/layer_stack.h
+                 src/core/layer_stack.cpp
                  src/imgui/imgui_impl_glfw.h
                  src/imgui/imgui_impl_glfw.cpp
                  src/imgui/imgui_impl_opengl3.h
                  src/imgui/imgui_impl_opengl3.cpp
+                 src/imgui/imgui_layer.h
                  src/imgui/imgui_layer.cpp)
 
 add_executable(opengl_playground WIN32 ${SOURCE_FILES})
