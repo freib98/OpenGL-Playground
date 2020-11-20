@@ -16,6 +16,9 @@ public:
     void Detach() override;
     void Update() override;
 
+    void Begin();
+    void End();
+
 private:
     GLFWwindow* _window;
 };

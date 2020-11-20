@@ -15,7 +15,10 @@ set(SOURCE_FILES src/main.cpp
                  src/imgui/imgui_layer.h
                  src/imgui/imgui_layer.cpp)
 
-add_executable(opengl_playground WIN32 ${SOURCE_FILES})
+set(EXAMPLE_FILES src/examples/triangle.h
+                  src/examples/triangle.cpp)
+
+add_executable(opengl_playground WIN32 ${SOURCE_FILES} ${EXAMPLE_FILES})
 target_include_directories(opengl_playground PUBLIC src/)
 
 # --- glfw ---
