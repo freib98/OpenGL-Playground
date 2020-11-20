@@ -9,6 +9,10 @@ void ImguiLayer::Attach()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
+    auto& io = ImGui::GetIO();
+
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
     ImGui::StyleColorsDark();
 
     ImGui_ImplGlfw_InitForOpenGL(_window, true);
@@ -37,7 +41,14 @@ void ImguiLayer::Begin()
 
 void ImguiLayer::End()
 {
-    ImGui::Render();
+    auto& io = ImGui::GetIO();
 
+    ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+    }
 }
